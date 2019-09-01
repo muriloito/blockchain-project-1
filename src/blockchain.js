@@ -69,8 +69,6 @@ class Blockchain {
                 // block height
                 block.height = this.chain.length;
 
-                murilo = meuuuuu
-    
                 // UTC timestamp
                 block.timeStamp = new Date().getTime().toString().slice(0,-3);
 
