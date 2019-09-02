@@ -204,7 +204,9 @@ class Blockchain {
             self.chain.slice(1).forEach(async function(block) {
 
                 await block.getBData().then(function(blockData) {
-                    stars.push(blockData);
+                    if (blockData['owner'] == address) {
+                        stars.push(blockData);
+                    }
                 });
 
             });
