@@ -70,11 +70,11 @@ class Blockchain {
                 block.height = this.chain.length;
 
                 // UTC timestamp
-                block.timeStamp = new Date().getTime().toString().slice(0,-3);
+                block.time = new Date().getTime().toString().slice(0,-3);
 
                 if (this.chain.length > 0) {
                     // previous block hash
-                    block.previousHash = this.chain[this.chain.length-1].hash;
+                    block.previousBlockHash = this.chain[this.chain.length-1].hash;
                 }
 
                 // Create block hash
@@ -228,7 +228,7 @@ class Blockchain {
 
             self.chain.forEach(async function(block, height) {
 
-                // the first block does not have previousHash
+                // the first block does not have previousBlockHash
                 let previousBlockHash = null;
                 // get the previous hash of chain
                 if (height > 0) {
@@ -236,11 +236,11 @@ class Blockchain {
                 }
 
                 // check the chain's consistency
-                if (block.previousHash != previousBlockHash) {
-                    errorLog.push('The chain is broken, the previousHash of block height *'+height+'* is invalid');
+                if (block.previousBlockHash != previousBlockHash) {
+                    errorLog.push('The chain is broken, the previousBlockHash of block height *'+height+'* is invalid');
                 }
 
-                await block.validate().then(function(isValid) {
+                block.validate().then(function(isValid) {
                     if (isValid == false) {
                         errorLog.push('The block height *'+height+'* is invalid, hash doest not match');
                     }
